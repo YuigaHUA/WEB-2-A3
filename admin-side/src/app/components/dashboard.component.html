@@ -1,0 +1,70 @@
+<div class="dashboard-container">
+  <header class="dashboard-header">
+    <h1>管理后台</h1>
+    <p>慈善活动管理平台</p>
+  </header>
+
+  <!-- 统计卡片 -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">📊</div>
+      <div class="stat-info">
+        <h3>{{ stats.totalEvents }}</h3>
+        <p>总活动数</p>
+      </div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="stat-icon">👥</div>
+      <div class="stat-info">
+        <h3>{{ stats.totalRegistrations }}</h3>
+        <p>总注册人数</p>
+      </div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="stat-icon">🆕</div>
+      <div class="stat-info">
+        <h3>{{ stats.upcomingEvents }}</h3>
+        <p>即将开始的活动</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 快速操作 -->
+  <div class="quick-actions">
+    <h2>快速操作</h2>
+    <div class="action-buttons">
+      <button class="btn-primary" (click)="navigateToNewEvent()">
+        ➕ 创建新活动
+      </button>
+      <button class="btn-secondary" (click)="navigateToEvents()">
+        📋 管理活动
+      </button>
+    </div>
+  </div>
+
+  <!-- 最近活动 -->
+  <div class="recent-events">
+    <h2>最近活动</h2>
+    @if (loading) {
+      <div class="loading">加载中...</div>
+    } @else if (events.length === 0) {
+      <div class="empty-state">暂无活动</div>
+    } @else {
+      <div class="events-list">
+        @for (event of events.slice(0, 5); track event.eventId) {
+          <div class="event-item">
+            <div class="event-info">
+              <h4>{{ event.title }}</h4>
+              <p>{{ event.location }} • {{ formatDate(event.eventDate) }}</p>
+            </div>
+            <div class="event-stats">
+              <span class="registration-count">{{ event.registrationCount }} 人注册</span>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,184 @@
+<div class="event-form-container">
+  <div class="page-header">
+    <h1>{{ pageTitle }}</h1>
+    <p>{{ isEditMode ? '修改活动信息' : '创建新的慈善活动' }}</p>
+  </div>
+
+  <!-- 加载状态 -->
+  @if (loading && isEditMode) {
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>正在加载活动数据...</p>
+    </div>
+  }
+
+  <!-- 表单 -->
+  @if ((!loading && isEditMode) || !isEditMode) {
+    <form [formGroup]="eventForm" (ngSubmit)="onSubmit()" class="event-form">
+      <div class="form-grid">
+        <!-- 基本信息 -->
+        <div class="form-section">
+          <h3>基本信息</h3>
+          
+          <div class="form-group">
+            <label for="title">活动标题 *</label>
+            <input 
+              type="text" 
+              id="title" 
+              formControlName="title"
+              placeholder="请输入活动标题"
+              [class.error]="f['title'].touched && f['title'].errors">
+            @if (f['title'].touched && f['title'].errors) {
+              <div class="error-message">
+                @if (f['title'].errors['required']) {
+                  <span>活动标题是必填项</span>
+                }
+                @if (f['title'].errors['minlength']) {
+                  <span>标题至少需要5个字符</span>
+                }
+              </div>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="categoryId">活动类别 *</label>
+            <select 
+              id="categoryId" 
+              formControlName="categoryId"
+              [class.error]="f['categoryId'].touched && f['categoryId'].errors">
+              <option value="">请选择类别</option>
+              @for (category of categories; track category.category_id) {
+                <option [value]="category.category_id">{{ category.category_name }}</option>
+              }
+            </select>
+            @if (f['categoryId'].touched && f['categoryId'].errors) {
+              <div class="error-message">
+                <span>请选择活动类别</span>
+              </div>
+            }
+          </div>
+
+          <div class="form-group full-width">
+            <label for="description">活动描述 *</label>
+            <textarea 
+              id="description" 
+              formControlName="description"
+              placeholder="详细描述活动内容、目的、流程等"
+              rows="5"
+              [class.error]="f['description'].touched && f['description'].errors"></textarea>
+            @if (f['description'].touched && f['description'].errors) {
+              <div class="error-message">
+                @if (f['description'].errors['required']) {
+                  <span>活动描述是必填项</span>
+                }
+                @if (f['description'].errors['minlength']) {
+                  <span>描述至少需要20个字符</span>
+                }
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- 时间地点 -->
+        <div class="form-section">
+          <h3>时间与地点</h3>
+          
+          <div class="form-group">
+            <label for="eventDate">活动时间 *</label>
+            <input 
+              type="datetime-local" 
+              id="eventDate" 
+              formControlName="eventDate"
+              [class.error]="f['eventDate'].touched && f['eventDate'].errors">
+            @if (f['eventDate'].touched && f['eventDate'].errors) {
+              <div class="error-message">
+                <span>请选择活动时间</span>
+              </div>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="location">活动地点 *</label>
+            <input 
+              type="text" 
+              id="location" 
+              formControlName="location"
+              placeholder="请输入详细地址"
+              [class.error]="f['location'].touched && f['location'].errors">
+            @if (f['location'].touched && f['location'].errors) {
+              <div class="error-message">
+                <span>活动地点是必填项</span>
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- 费用与图片 -->
+        <div class="form-section">
+          <h3>费用与图片</h3>
+          
+          <div class="form-group">
+            <label for="price">参与费用 *</label>
+            <input 
+              type="number" 
+              id="price" 
+              formControlName="price"
+              min="0"
+              step="0.01"
+              placeholder="0.00"
+              [class.error]="f['price'].touched && f['price'].errors">
+            @if (f['price'].touched && f['price'].errors) {
+              <div class="error-message">
+                @if (f['price'].errors['required']) {
+                  <span>费用是必填项</span>
+                }
+                @if (f['price'].errors['min']) {
+                  <span>费用不能为负数</span>
+                }
+              </div>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="imageUrl">活动图片URL</label>
+            <input 
+              type="url" 
+              id="imageUrl" 
+              formControlName="imageUrl"
+              placeholder="https://example.com/image.jpg">
+            <small class="help-text">可选，如不提供将使用默认图片</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- 错误信息 -->
+      @if (error) {
+        <div class="form-error">
+          <div class="error-icon">⚠️</div>
+          <p>{{ error }}</p>
+        </div>
+      }
+
+      <!-- 表单操作 -->
+      <div class="form-actions">
+        <button type="button" class="btn-cancel" (click)="onCancel()">
+          取消
+        </button>
+        <button 
+          type="submit" 
+          class="btn-submit"
+          [disabled]="submitting">
+          @if (submitting) {
+            <span class="loading-spinner"></span>
+          }
+          {{ submitButtonText }}
+        </button>
+      </div>
+    </form>
+  }
+
+  <!-- 返回链接 -->
+  <div class="back-section">
+    <a routerLink="/events" class="btn-back">← 返回活动列表</a>
+  </div>
+</div>

@@ -1,0 +1,99 @@
+<div class="event-list-container">
+  <div class="page-header">
+    <h1>活动管理</h1>
+    <p>管理所有慈善活动</p>
+    <button class="btn-create" (click)="createNewEvent()">
+      ➕ 创建新活动
+    </button>
+  </div>
+
+  <!-- 加载状态 -->
+  @if (loading) {
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>正在加载活动...</p>
+    </div>
+  }
+
+  <!-- 错误状态 -->
+  @if (error && !loading) {
+    <div class="error-state">
+      <div class="error-icon">⚠️</div>
+      <h3>加载失败</h3>
+      <p>{{ error }}</p>
+      <button class="btn-retry" (click)="loadEvents()">重新加载</button>
+    </div>
+  }
+
+  <!-- 空状态 -->
+  @if (!loading && !error && events.length === 0) {
+    <div class="empty-state">
+      <div class="empty-icon">📅</div>
+      <h3>暂无活动</h3>
+      <p>还没有创建任何活动</p>
+      <button class="btn-create" (click)="createNewEvent()">
+        ➕ 创建第一个活动
+      </button>
+    </div>
+  }
+
+  <!-- 活动列表 -->
+  @if (!loading && !error && events.length > 0) {
+    <div class="events-table">
+      <table>
+        <thead>
+          <tr>
+            <th>活动名称</th>
+            <th>时间</th>
+            <th>地点</th>
+            <th>费用</th>
+            <th>注册人数</th>
+            <th>状态</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (event of events; track event.eventId) {
+            <tr>
+              <td class="event-title">
+                <strong>{{ event.title }}</strong>
+                <br>
+                <small>{{ event.categoryName }}</small>
+              </td>
+              <td>{{ formatDate(event.eventDate) }}</td>
+              <td>{{ event.location }}</td>
+              <td [class.free]="event.price === 0">
+                {{ formatPrice(event.price) }}
+              </td>
+              <td>
+                <span class="registration-badge">
+                  {{ event.registrationCount }} 人
+                </span>
+              </td>
+              <td>
+                @if (isUpcoming(event.eventDate)) {
+                  <span class="status-badge upcoming">即将开始</span>
+                } @else {
+                  <span class="status-badge ended">已结束</span>
+                }
+              </td>
+              <td class="actions">
+                <button class="btn-edit" (click)="editEvent(event.eventId)">
+                  编辑
+                </button>
+                <button class="btn-delete" (click)="deleteEvent(event.eventId)">
+                  删除
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+
+  <!-- 返回仪表板 -->
+  <div class="back-section">
+    <a routerLink="/" class="btn-back">← 返回仪表板</a>
+  </div>
+</div>
