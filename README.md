@@ -1,14 +1,14 @@
-🎗️ Charity Events App
-📖 Project Overview
+**🎗️ Charity Events App**
+**📖 Project Overview**
 A complete full-stack charity events management platform built with modular development approach, featuring clear separation between user client and admin panel with shared backend development.
 
-👥 Development Team & Responsibilities
-🎯 Development Approach
+**👥 Development Team & Responsibilities**
+**🎯 Development Approach**
 Member	Primary Focus	Collaborative Areas
 Fan	User Client (client-side/)	Shared Backend (backend-api/)
 Jiang	Admin Panel (admin-side/)	Shared Backend (backend-api/)
-📋 Detailed Responsibilities
-👤 Fan - User Client Specialist
+**📋 Detailed Responsibilities**
+**👤 Fan - User Client Specialist**
 Primary Focus: client-side/
 
 Event browsing and search interface
@@ -21,7 +21,7 @@ User dashboard and registration history
 
 Responsive mobile-first design
 
-⚙️ Jiang - Admin Panel Specialist
+**⚙️ Jiang - Admin Panel Specialist**
 Primary Focus: admin-side/
 
 Event management CRUD interface
@@ -32,7 +32,7 @@ Registration review and approval system
 
 Bulk operations and administrative tools
 
-🤝 Collaborative Backend (backend-api/)
+**🤝 Collaborative Backend (backend-api/)**
 Both Developers Work Together On:
 
 Express.js server setup and configuration (server.js)
@@ -49,7 +49,7 @@ Package dependencies management (package.json)
 
 Database schema design and migrations
 
-🛠️ Technology Stack
+**🛠️ Technology Stack**
 Frontend Technologies
 Framework: Angular 17 + Standalone Components
 
@@ -79,7 +79,7 @@ API Testing: Postman
 
 Deployment: cPanel
 
-🚀 Core Features
+**🚀 Core Features**
 User Client Module (Fan - client-side/)
 ✅ Event browsing and search
 
@@ -113,7 +113,7 @@ Shared Backend (Both - backend-api/)
 
 ✅ Security implementation
 
-📁 Project Structure
+**📁 Project Structure**
 text
 charity-event-app/
 ├── client-side/          # User Client Angular Application (Fan)
@@ -127,7 +127,7 @@ charity-event-app/
 │   └── server.js        # Main server file
 ├── database/             # Database Schema & Initial Data
 └── docs/                 # Project Documentation
-🎯 Quick Start
+**🎯 Quick Start**
 Prerequisites
 Node.js 18.0+
 
@@ -162,7 +162,7 @@ Admin Panel: http://localhost:4201 (Jiang)
 
 API Endpoint: http://localhost:3000/api
 
-🔄 Development Workflow
+**🔄 Development Workflow**
 Individual Focus Areas
 Fan: Deep expertise in user experience and client-side functionality
 
@@ -186,7 +186,7 @@ Quality: Two sets of eyes on critical backend code
 
 Learning: Knowledge sharing across frontend and backend
 
-🚀 Deployment Strategy
+**🚀 Deployment Strategy**
 Phase 1: Local development with shared backend
 
 Phase 2: Integration testing between modules
@@ -195,7 +195,7 @@ Phase 3: Production deployment on cPanel
 
 Phase 4: Performance monitoring and optimization
 
-🤝 Contributing Guidelines
+**🤝 Contributing Guidelines**
 Fan: Primary maintainer for client-side/ features
 
 Jiang: Primary maintainer for admin-side/ features
