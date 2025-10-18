@@ -99,11 +99,6 @@ event_categories - Event categories table
 
 Refer to documents in database/ directory for detailed ER diagram.
 
-**🔧 Deployment**
-Detailed production environment deployment instructions can be found in docs/Deployment_Guide.md
-
-**📄 License**
-MIT License
 
 **🤝 Contributing**
 Issues and Pull Requests are welcome!
