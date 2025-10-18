@@ -1,0 +1,90 @@
+<div class="container">
+  <button class="btn-back" routerLink="/">← 返回列表</button>
+
+  @if (loading) {
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>正在加载活动详情...</p>
+    </div>
+  } @else if (error) {
+    <div class="error-state">
+      <div class="error-icon">⚠️</div>
+      <h3>加载失败</h3>
+      <p>{{ error }}</p>
+      <button class="btn-retry" routerLink="/">返回列表</button>
+    </div>
+  } @else if (eventDetail) {
+    <div class="event-detail">
+      <div class="event-header">
+        <h1>{{ eventDetail.event.title }}</h1>
+        <span class="category-badge">{{ eventDetail.event.categoryName }}</span>
+      </div>
+
+      <div class="event-image-large">
+        <img [src]="'https://picsum.photos/800/400?random=' + eventDetail.event.eventId" 
+             [alt]="eventDetail.event.title">
+      </div>
+
+      <div class="event-info">
+        <div class="info-section">
+          <h3>活动描述</h3>
+          <p>{{ eventDetail.event.description }}</p>
+        </div>
+
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="info-label">📅 活动时间</span>
+            <span class="info-value">{{ formatDate(eventDetail.event.eventDate) }}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">📍 活动地点</span>
+            <span class="info-value">{{ eventDetail.event.location }}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">💰 参与费用</span>
+            <span class="info-value" [class.free]="eventDetail.event.price === 0">
+              {{ formatPrice(eventDetail.event.price) }}
+            </span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">👥 已注册人数</span>
+            <span class="info-value">{{ eventDetail.registrations.length }} 人</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="action-section">
+        <button class="btn-register" (click)="registerForEvent()">
+          立即注册
+        </button>
+      </div>
+
+      <div class="registrations-section">
+        <h3>已注册用户 ({{ eventDetail.registrations.length }})</h3>
+        
+        @if (eventDetail.registrations.length === 0) {
+          <div class="no-registrations">
+            <p>暂无注册记录</p>
+          </div>
+        } @else {
+          <div class="registrations-list">
+            @for (reg of eventDetail.registrations; track reg.registrationId) {
+              <div class="registration-item">
+                <div class="reg-avatar">
+                  {{ reg.userName.charAt(0).toUpperCase() }}
+                </div>
+                <div class="reg-info">
+                  <div class="user-name">{{ reg.userName }}</div>
+                  <div class="user-details">
+                    <span class="ticket-quantity">购买了 {{ reg.ticketQuantity }} 张票</span>
+                    <span class="reg-date">{{ formatDate(reg.registrationDate) }}</span>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  }
+</div>

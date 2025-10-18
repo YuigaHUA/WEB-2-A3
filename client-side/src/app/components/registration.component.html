@@ -1,0 +1,162 @@
+<div class="container">
+  <button class="btn-back" routerLink="/">← 返回列表</button>
+
+  @if (loading) {
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>正在加载活动信息...</p>
+    </div>
+  } @else if (error && !event) {
+    <div class="error-state">
+      <div class="error-icon">⚠️</div>
+      <h3>加载失败</h3>
+      <p>{{ error }}</p>
+      <button class="btn-retry" routerLink="/">返回列表</button>
+    </div>
+  } @else if (success) {
+    <div class="success-state">
+      <div class="success-icon">✅</div>
+      <h2>注册成功！</h2>
+      <p>感谢您的注册，我们已收到您的报名信息</p>
+      <div class="success-actions">
+        <button class="btn-primary" routerLink="/">返回活动列表</button>
+        <button class="btn-secondary" (click)="success = false">继续注册其他活动</button>
+      </div>
+    </div>
+  } @else if (event) {
+    <div class="registration-container">
+      <div class="event-summary">
+        <h2>活动注册</h2>
+        <div class="event-card">
+          <h3>{{ event.title }}</h3>
+          <div class="event-details">
+            <p><strong>时间：</strong>{{ event.eventDate | date:'yyyy-MM-dd HH:mm' }}</p>
+            <p><strong>地点：</strong>{{ event.location }}</p>
+            <p><strong>费用：</strong>
+              <span [class.free]="event.price === 0">{{ formatPrice(event.price) }}</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="registration-form">
+        <h3>填写注册信息</h3>
+        
+        <div class="form-group">
+          <label for="userName">姓名 *</label>
+          <input 
+            type="text" 
+            id="userName" 
+            formControlName="userName"
+            placeholder="请输入您的姓名"
+            [class.error]="f['userName'].touched && f['userName'].errors">
+          @if (f['userName'].touched && f['userName'].errors) {
+            <div class="error-message">
+              @if (f['userName'].errors['required']) {
+                <span>姓名是必填项</span>
+              }
+              @if (f['userName'].errors['minlength']) {
+                <span>姓名至少需要2个字符</span>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="userEmail">邮箱 *</label>
+          <input 
+            type="email" 
+            id="userEmail" 
+            formControlName="userEmail"
+            placeholder="请输入您的邮箱地址"
+            [class.error]="f['userEmail'].touched && f['userEmail'].errors">
+          @if (f['userEmail'].touched && f['userEmail'].errors) {
+            <div class="error-message">
+              @if (f['userEmail'].errors['required']) {
+                <span>邮箱是必填项</span>
+              }
+              @if (f['userEmail'].errors['email']) {
+                <span>请输入有效的邮箱地址</span>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="userPhone">手机号 *</label>
+          <input 
+            type="tel" 
+            id="userPhone" 
+            formControlName="userPhone"
+            placeholder="请输入您的手机号码"
+            [class.error]="f['userPhone'].touched && f['userPhone'].errors">
+          @if (f['userPhone'].touched && f['userPhone'].errors) {
+            <div class="error-message">
+              @if (f['userPhone'].errors['required']) {
+                <span>手机号是必填项</span>
+              }
+              @if (f['userPhone'].errors['pattern']) {
+                <span>请输入有效的手机号码</span>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="ticketQuantity">票数 *</label>
+          <select 
+            id="ticketQuantity" 
+            formControlName="ticketQuantity"
+            [class.error]="f['ticketQuantity'].touched && f['ticketQuantity'].errors">
+            @for (num of [1,2,3,4,5,6,7,8,9,10]; track num) {
+              <option [value]="num">{{ num }} 张</option>
+            }
+          </select>
+          @if (f['ticketQuantity'].touched && f['ticketQuantity'].errors) {
+            <div class="error-message">
+              @if (f['ticketQuantity'].errors['required']) {
+                <span>请选择票数</span>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="specialRequirements">特殊要求</label>
+          <textarea 
+            id="specialRequirements" 
+            formControlName="specialRequirements"
+            placeholder="如有特殊需求请在此说明（例如：饮食限制、 accessibility需求等）"
+            rows="4"></textarea>
+        </div>
+
+        @if (error) {
+          <div class="form-error">
+            <div class="error-icon">⚠️</div>
+            <p>{{ error }}</p>
+          </div>
+        }
+
+        <div class="form-actions">
+          <button 
+            type="button" 
+            class="btn-cancel" 
+            routerLink="/">
+            取消
+          </button>
+          <button 
+            type="submit" 
+            class="btn-submit"
+            [disabled]="submitting">
+            @if (submitting) {
+              <span class="loading-spinner"></span>
+              提交中...
+            } @else {
+              立即注册
+            }
+          </button>
+        </div>
+      </form>
+    </div>
+  }
+</div>
