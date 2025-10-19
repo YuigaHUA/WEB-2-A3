@@ -45,10 +45,16 @@ npm install
 ng serve --port 4201
 Access URLs
 User Client: http://localhost:4200
+https://24516497.it.scu.edu.au/client/
+https://24516646.it.scu.edu.au/client/
 
 Admin Panel: http://localhost:4201
+https://24516497.it.scu.edu.au/admin/
+https://24516646.it.scu.edu.au/admin/
 
 API: http://localhost:3000/api
+https://24516497.it.scu.edu.au/DataServ_2/api
+https://24516646.it.scu.edu.au/DataServ_2/api
 
 📁 Frontend Implementation Details
 User Client (client-side/) - Fan
