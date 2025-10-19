@@ -22,8 +22,8 @@ A comprehensive full-stack web application for managing charity events, featurin
 ## 🚀 Quick Start Guide
 
 ### Prerequisites
-- **Node.js** 18.0+
-- **Angular CLI** 17.0+
+- **Node.js** 22.4
+- **Angular CLI** 20.3.5
 - **MySQL** 8.0+
 
 ### Installation & Setup
