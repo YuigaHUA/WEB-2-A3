@@ -4,7 +4,7 @@
 This document describes the RESTful API endpoints for the Charity Events Management Platform. All endpoints return JSON responses and follow consistent error handling patterns.
 
 ## 🔧 Base Information
-- **Base URL**: `http://localhost:3000/api`
+- **Base URL**: `http://localhost:3000/api`'https://24516497.it.scu.edu.au/DataServ_2/api' 'https://24516646.it.scu.edu.au/DataServ_2/api'
 - **Authentication**: None required (development version)
 - **Content Type**: `application/json`
 - **Response Format**: Standardized JSON with success status
@@ -366,4 +366,5 @@ curl -X POST http://localhost:3000/api/registrations \
     "userName": "Test User",
     "userEmail": "test@example.com",
     "ticketQuantity": 1
+
   }'
