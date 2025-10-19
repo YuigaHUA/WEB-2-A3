@@ -1,6 +1,6 @@
 # 🎨 Frontend Development Documentation
 
-## 👨‍💻 Developer: Your Name
+## 👨‍💻 Developer: Yaoning Fan，Yunyang Jiang
 **Role:** Frontend Full-Stack Engineer
 
 ## 📋 Responsibilities
@@ -243,4 +243,5 @@ OnPush change detection strategy where applicable
 Efficient RxJS operators to minimize unnecessary API calls
 
 Optimized bundle size through Angular build optimization
+
 
